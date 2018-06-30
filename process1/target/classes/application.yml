@@ -1,0 +1,3 @@
+server:
+  port: ${appPort:37001}
+  additionalPorts: 38001
