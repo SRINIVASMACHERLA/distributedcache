@@ -13,6 +13,15 @@ import org.springframework.context.annotation.Configuration;
 
 import com.google.common.collect.Sets;
 
+/**
+ * This class is responsible for configuring embedded Tomcat. As of now,
+ * configures embedded tomcat to run on two ports. One for issue cache commands
+ * by clients and other as peer-to-peer communication port to communicate cache
+ * updates like cache miss.
+ *
+ * @author macherla
+ *
+ */
 @Configuration
 public class EmbeddedTomcatConfiguration {
 
@@ -21,6 +30,8 @@ public class EmbeddedTomcatConfiguration {
 
 	@Value("${server.additionalPorts:null}")
 	private String additionalPorts;
+
+	final Set<String> defaultPorts = Sets.newHashSet(this.serverPort);
 
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
@@ -37,7 +48,6 @@ public class EmbeddedTomcatConfiguration {
 			return null;
 		}
 
-		Set<String> defaultPorts = Sets.newHashSet(this.serverPort);
 		String[] ports = this.additionalPorts.split(",");
 		List<Connector> result = new ArrayList<>();
 		for (String port : ports) {

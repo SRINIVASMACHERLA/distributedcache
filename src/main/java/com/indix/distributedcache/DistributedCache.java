@@ -4,6 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+/**
+ * Distributed cache implementation. In case of cache miss, uses
+ * {@link KeyFinder} to find the key.
+ *
+ * @author macherla
+ *
+ */
 @Component
 @Qualifier("DistributedCache")
 public final class DistributedCache implements Cache {
